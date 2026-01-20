@@ -26,7 +26,8 @@ const SignUp = () => {
                 }
             };
             const body = JSON.stringify({ name, email, password });
-            await axios.post('http://localhost:5000/api/auth/signup', body, config);
+            const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001/api';
+            await axios.post(`${apiBaseUrl}/auth/signup`, body, config);
             navigate('/login');
         } catch (err: any) {
             setError(err.response?.data?.msg || 'Something went wrong');
