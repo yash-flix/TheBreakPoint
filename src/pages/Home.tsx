@@ -136,9 +136,9 @@ function HeroSection({ onOpenContactForm }: { onOpenContactForm: () => void }) {
                         <Button size="lg" onClick={onOpenContactForm} variant="white">
                             Lets break into your idea
                         </Button>
-                        <Button size="lg" variant="outline" onClick={onOpenContactForm}>
+                        {/* <Button size="lg" variant="outline" onClick={onOpenContactForm}>
                             Book a consultation
-                        </Button>
+                        </Button> */}
                     </motion.div>
                 </motion.div>
             </div>
@@ -327,11 +327,11 @@ function CallToActionSection({ onOpenContactForm }: { onOpenContactForm: () => v
                     </h2>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12">
-                        <Button size="lg" onClick={onOpenContactForm} className="min-w-[180px]">
+                        {/* <Button size="lg" onClick={onOpenContactForm} className="min-w-[180px]">
                             Request pricing
-                        </Button>
-                        <Button size="lg" variant="outline" onClick={onOpenContactForm} className="min-w-[180px]">
-                            Book a consultation
+                        </Button> */}
+                        <Button size="lg" variant="outline" className="min-w-[180px]">
+                            <a href="/contact">Book a consultation</a>
                         </Button>
                     </div>
                 </AnimatedContainer>

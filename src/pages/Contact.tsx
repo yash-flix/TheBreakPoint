@@ -10,10 +10,11 @@ const Contact = () => {
         window.open(`https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${whatsappMessage}`, '_blank');
     };
 
-    // Function to open Email
     const handleEmailClick = () => {
-        window.location.href = "mailto:thebreakpoint.inc@gmail.com?subject=Project%20Inquiry";
+        window.location.href = "mailto:contact@breakpoint.digital?subject=Project%20Inquiry&body=Hi%20Breakpoint%2C%20I'd%20like%20to%20discuss%20a%20project.";
     };
+
+
 
     return (
         <div className="min-h-screen bg-neutral-950 flex flex-col items-center justify-center relative overflow-hidden px-4 md:px-0">
@@ -49,12 +50,15 @@ const Contact = () => {
                     </button>
 
                     {/* Email Button */}
+
                     <button
-                        onClick={handleEmailClick}
+                        // onClick={handleEmailClick}
                         className="group relative flex items-center justify-center gap-3 w-full md:w-auto min-w-[280px] px-8 py-5 bg-white hover:bg-neutral-100 text-neutral-950 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-white/10"
                     >
                         <Mail className="w-6 h-6" />
-                        <span className="text-lg font-semibold">Email us</span>
+                        <span className="text-lg font-semibold"><a href="https://mail.google.com/mail/?view=cm&fs=1&to=thebreakpoint.inc@gmail.com&su=Project%20Inquiry&body=Hi%20Breakpoint%2C%20I%20have%20a%20project%20idea%20to%20discuss." target="_blank" rel="noopener noreferrer" className="email-btn">
+                            Email Us
+                        </a></span>
                     </button>
                 </div>
 
