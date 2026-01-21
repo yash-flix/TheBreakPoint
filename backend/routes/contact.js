@@ -6,7 +6,7 @@ const Contact = require('../models/Contact');
 // @desc    Submit contact form
 // @access  Public
 router.post('/', async (req, res) => {
-    const { name, email, contact, subject } = req.body;
+    const { name, email, contact, subject, message } = req.body;
 
     // Simple validation
     if (!name || !email || !contact || !subject) {
@@ -18,14 +18,17 @@ router.post('/', async (req, res) => {
             name,
             email,
             contact,
-            subject
+            subject,
+            // Message is optional so that the old modal form still works
+            message,
         });
 
         const savedContact = await newContact.save();
+        console.log('New contact saved to MongoDB:', savedContact);
         res.json(savedContact);
     } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server Error');
+        console.error('Error saving contact:', err);
+        res.status(500).json({ msg: 'Server Error', error: err.message });
     }
 });
 

@@ -17,6 +17,11 @@ const ContactSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    // Optional detailed message from the Contact page form
+    message: {
+        type: String,
+        required: false
+    },
     createdAt: {
         type: Date,
         default: Date.now
