@@ -17,10 +17,19 @@ const ContactSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    // Optional detailed message from the Contact page form
+    message: {
+        type: String,
+        required: false,
+        default: ''
+    },
     createdAt: {
         type: Date,
         default: Date.now
     }
+}, {
+    // Ensure empty strings are saved
+    minimize: false
 });
 
 module.exports = mongoose.model('Contact', ContactSchema);

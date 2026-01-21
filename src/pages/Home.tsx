@@ -133,7 +133,14 @@ function HeroSection({ onOpenContactForm }: { onOpenContactForm: () => void }) {
                         transition={{ delay: 0.8 }}
                         className="flex flex-col sm:flex-row items-center justify-center gap-4"
                     >
-                        <Button size="lg" onClick={onOpenContactForm} variant="white">
+                        <Button
+                            size="lg"
+                            variant="white"
+                            onClick={() => {
+                                // Redirect to the Contact page route
+                                window.location.href = '/contact';
+                            }}
+                        >
                             Lets break into your idea
                         </Button>
                         {/* <Button size="lg" variant="outline" onClick={onOpenContactForm}>
