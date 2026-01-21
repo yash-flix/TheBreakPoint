@@ -30,6 +30,15 @@ const Contact = () => {
         setIsSubmitting(true);
         try {
             const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001/api';
+            console.log('Submitting to:', `${apiBaseUrl}/contact`);
+            console.log('Form data:', {
+                name: formData.name,
+                email: formData.email,
+                contact: formData.phone,
+                subject: formData.subject,
+                message: formData.message
+            });
+            
             const response = await fetch(`${apiBaseUrl}/contact`, {
                 method: 'POST',
                 headers: {
@@ -46,17 +55,27 @@ const Contact = () => {
             });
 
             if (response.ok) {
-                console.log('Contact form successfully stored in backend');
+                const result = await response.json();
+                console.log('✅ Contact form successfully stored in backend:', result);
                 setIsSuccess(true);
                 setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
             } else {
                 const errorText = await response.text();
-                console.error('Failed to submit contact form:', response.status, errorText);
-                alert('There was a problem submitting your message. Please try again.');
+                console.error('❌ Failed to submit contact form:', response.status, errorText);
+                let errorMessage = 'There was a problem submitting your message.';
+                try {
+                    const errorJson = JSON.parse(errorText);
+                    errorMessage = errorJson.msg || errorMessage;
+                } catch (e) {
+                    // If errorText is not JSON, use it as is
+                    errorMessage = errorText || errorMessage;
+                }
+                alert(`Error: ${errorMessage}`);
             }
-        } catch (error) {
-            console.error(error);
-            alert('Unable to reach the server. Please check your connection or try again later.');
+        } catch (error: any) {
+            console.error('❌ Network error:', error);
+            const errorMessage = error.message || 'Unable to reach the server.';
+            alert(`Connection Error: ${errorMessage}\n\nPlease make sure the backend server is running on port 5001.`);
         } finally {
             setIsSubmitting(false);
         }
