@@ -36,7 +36,8 @@ const projects: Project[] = [
         description: "Dynamic brand motion system for a tech conglomerate. created a cohesive visual language across all digital touchpoints.",
         videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
         tags: ["Branding", "Motion Graphics", "Strategy"]
-    }
+    },
+    
 ];
 
 const Work = () => {
