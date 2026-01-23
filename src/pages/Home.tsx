@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Layout, Smartphone, Globe, PenTool, Server, CheckCircle2 } from 'lucide-react';
-import ContactForm from '../components/ContactForm';
 
 // --- Reusable Components ---
 
@@ -99,7 +98,7 @@ function FloatingPaths({ position }: { position: number }) {
 
 // --- Sections ---
 
-function HeroSection({ onOpenContactForm }: { onOpenContactForm?: () => void }) {
+function HeroSection() {
     return (
         <div className="relative min-h-[90vh] w-full flex items-center justify-center overflow-hidden bg-neutral-950 pt-20">
             <div className="absolute inset-0 opacity-20">
@@ -143,9 +142,6 @@ function HeroSection({ onOpenContactForm }: { onOpenContactForm?: () => void }) 
                         >
                             Lets break into your idea
                         </Button>
-                        {/* <Button size="lg" variant="outline" onClick={onOpenContactForm}>
-                            Book a consultation
-                        </Button> */}
                     </motion.div>
                 </motion.div>
             </div>
@@ -159,7 +155,7 @@ function PositioningSection() {
             <div className="container mx-auto px-4">
                 <AnimatedContainer className="max-w-4xl mx-auto text-center">
                     <h2 className="text-3xl md:text-4xl font-semibold mb-8 text-neutral-200">
-                        A strong online presence isn’t optional anymore.
+                        A strong online presence isn't optional anymore.
                     </h2>
                     <p className="text-xl md:text-2xl text-neutral-400 leading-relaxed font-light">
                         At Breakpoint, we craft websites that look exceptional, communicate with precision, and convert more of the right customers.
@@ -270,7 +266,7 @@ function WhyChooseUsSection() {
 
                     <AnimatedContainer delay={0.4} className="text-center md:text-left">
                         <div className="space-y-6">
-                            <h3 className="text-3xl font-bold tracking-tight">Great design doesn’t shout;<br /> <span className="text-neutral-500">it convinces.</span></h3>
+                            <h3 className="text-3xl font-bold tracking-tight">Great design doesn't shout;<br /> <span className="text-neutral-500">it convinces.</span></h3>
                             <p className="text-neutral-400 text-lg">
                                 We don't just put pixels on a screen. We build systems that work for your business day and night.
                             </p>
@@ -282,61 +278,16 @@ function WhyChooseUsSection() {
     );
 }
 
-function ProcessSection() {
-    const steps = [
-        "Discover your brand, audience, and goals",
-        "Craft a clean structure and message",
-        "Design with precision and personality",
-        "Develop for performance and usability",
-        "Launch, support, and refine as needed"
-    ];
-
-    return (
-        <section className="py-24 bg-neutral-950">
-            <div className="container mx-auto px-4">
-                <AnimatedContainer className="mb-16 md:text-center max-w-3xl mx-auto">
-                    <h2 className="text-sm font-semibold tracking-wider text-neutral-500 uppercase mb-4">Our process</h2>
-                    <h3 className="text-4xl font-bold mb-4">Collaborative and straightforward.</h3>
-                    <p className="text-neutral-400">No clutter. No confusion. Just thoughtful digital craftsmanship.</p>
-                </AnimatedContainer>
-
-                <div className="max-w-4xl mx-auto">
-                    {steps.map((step, idx) => (
-                        <AnimatedContainer key={idx} delay={idx * 0.1}>
-                            <div className="flex gap-6 md:gap-10 pb-12 group last:pb-0 relative">
-                                {/* Line connector */}
-                                {idx !== steps.length - 1 && (
-                                    <div className="absolute left-[19px] top-10 bottom-0 w-px bg-neutral-800 group-hover:bg-neutral-700 transition-colors" />
-                                )}
-
-                                <div className="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-full bg-neutral-900 border border-neutral-800 text-neutral-400 font-semibold group-hover:bg-white group-hover:text-black transition-all duration-300">
-                                    {idx + 1}
-                                </div>
-                                <div className="pt-2">
-                                    <h4 className="text-xl md:text-2xl font-medium text-neutral-200 group-hover:text-white transition-colors">{step}</h4>
-                                </div>
-                            </div>
-                        </AnimatedContainer>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
-}
-
-function CallToActionSection({ onOpenContactForm }: { onOpenContactForm?: () => void }) {
+function CallToActionSection() {
     return (
         <section className="py-32 bg-neutral-950">
             <div className="container mx-auto px-4 text-center">
                 <AnimatedContainer className="max-w-4xl mx-auto">
                     <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 tracking-tight">
-                        If your business deserves a website that elevates how the world sees you, we’d love to talk.
+                        If your business deserves a website that elevates how the world sees you, we'd love to talk.
                     </h2>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12">
-                        {/* <Button size="lg" onClick={onOpenContactForm} className="min-w-[180px]">
-                            Request pricing
-                        </Button> */}
                         <Button size="lg" variant="outline" className="min-w-[180px]">
                             <a href="/contact">Book a consultation</a>
                         </Button>
@@ -350,23 +301,14 @@ function CallToActionSection({ onOpenContactForm }: { onOpenContactForm?: () => 
 // --- Main Page Component ---
 
 export default function Home() {
-    const [isContactFormOpen, setIsContactFormOpen] = useState(false);
-    const toggleContactForm = () => setIsContactFormOpen(true);
-
     return (
         <main className="bg-neutral-950 min-h-screen text-white selection:bg-white/20">
-            <HeroSection onOpenContactForm={toggleContactForm} />
+            <HeroSection />
             <PositioningSection />
             <ServicesSection />
             <TargetAudienceSection />
             <WhyChooseUsSection />
-            {/* <ProcessSection /> */}
-            <CallToActionSection onOpenContactForm={toggleContactForm} />
-
-            <ContactForm
-                isOpen={isContactFormOpen}
-                onClose={() => setIsContactFormOpen(false)}
-            />
+            <CallToActionSection />
         </main>
     )
 }

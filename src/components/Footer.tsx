@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import {  Twitter, MessageCircle, Mail } from "lucide-react";
+import { Twitter, MessageCircle } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -69,6 +69,7 @@ const Footer = () => {
                   to="/faq"
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
+                  FAQ
                 </Link>
               </li>
               <li>
@@ -84,6 +85,7 @@ const Footer = () => {
                   to="/portfolio"
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
+                  Portfolio
                 </Link>
               </li>
             </ul>
@@ -95,8 +97,7 @@ const Footer = () => {
               CONNECT
             </h4>
             <div className="flex space-x-4">
-
-                            <a
+              <a
                 href="https://x.com/breakpoint31411"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -113,12 +114,7 @@ const Footer = () => {
               >
                 <MessageCircle size={20} />
               </a>
-              <a
-                href="thebreakpoint.inc@gmail.com"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <Mail size={20} />
-              </a>
+ 
             </div>
           </div>
         </div>
