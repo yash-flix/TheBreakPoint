@@ -32,10 +32,21 @@ const Navbar = () => {
             <div className="container mx-auto px-4 md:px-6">
                 <div className="flex items-center justify-between h-20">
                     {/* Logo */}
-                    <Link to="/" className="flex items-center gap-2 text-xl md:text-2xl font-bold tracking-tighter text-white">
+                    {/* <Link to="/" className="flex items-center gap-2 text-xl md:text-2xl font-bold tracking-tighter text-white">
                         <img src={logo} alt="The BreakPoint" className="h-14 w-auto" />
                         <span className="hidden sm:inline">THE BREAKPOINT</span>
-                    </Link>
+                    </Link> */}
+                    <a 
+  href="#"
+  onClick={(e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }}
+  className="flex items-center gap-2 text-xl md:text-2xl font-bold tracking-tighter text-white cursor-pointer"
+>
+  <img src={logo} alt="The BreakPoint" className="h-14 w-auto" />
+  <span className="hidden sm:inline">THE BREAKPOINT</span>
+</a>
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center gap-8">
