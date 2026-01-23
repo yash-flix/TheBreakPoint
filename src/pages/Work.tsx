@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useAutoScroll } from "../hooks/useAutoScroll";
 import moments from "../assets/videos/moments.webm";
 import adSteels from "../assets/videos/adSteels.webm";
 
@@ -18,7 +19,7 @@ const projects: Project[] = [
     description:
       "A smart wedding planner platform that helps couples discover trusted vendors by location. From venues to photographers, Moments makes planning your big day seamless and stress-free.",
     videoUrl: moments,
-    tags: ["3D Animation", "Unreal Engine", "VFX"],
+    tags: ["Wedding planner", "Vendor finder", "Event management"],
     link: "https://moments-five-khaki.vercel.app/",
   },
   {
@@ -27,7 +28,7 @@ const projects: Project[] = [
     description:
         "A modern e-commerce catalouge site for premium steel bottles. Showcasing durable, eco-friendly designs that combine style with sustainability for everyday hydration.",
     videoUrl:adSteels,
-    tags: ["Mobile App", "React Native", "UX Design"],
+    tags: ["E-commerce", "Catalouge", "Eco-friendly products"],
     link: "https://ad-steels.vercel.app/",
   },
 //   {
@@ -53,6 +54,8 @@ const projects: Project[] = [
 ];
 
 const Work = () => {
+  useAutoScroll();
+
   return (
     <div className="min-h-screen bg-neutral-950 text-white pt-24 pb-16">
       <div className="container mx-auto px-4">
