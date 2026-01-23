@@ -3,6 +3,9 @@ import { motion } from 'framer-motion';
 import { useAutoScroll } from '../hooks/useAutoScroll';
 import { Mail, Phone, Clock, MessageCircle, CheckCircle } from 'lucide-react';
 
+const API_BASE_URL = "https://thebreakpoint-backend.onrender.com";
+
+
 const Contact = () => {
     useAutoScroll();
     const whatsappNumber = "918329761217"; // Placeholder
@@ -31,8 +34,7 @@ const Contact = () => {
         e.preventDefault();
         setIsSubmitting(true);
         try {
-            const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001/api';
-            console.log('Submitting to:', `${apiBaseUrl}/contact`);
+            // const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001/api';
             console.log('Form data:', {
                 name: formData.name,
                 email: formData.email,
@@ -41,7 +43,7 @@ const Contact = () => {
                 message: formData.message
             });
             
-            const response = await fetch(`${apiBaseUrl}/contact`, {
+            const response = await fetch(`${API_BASE_URL}/api/contact`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -49,9 +51,9 @@ const Contact = () => {
                 body: JSON.stringify({
                     name: formData.name,
                     email: formData.email,
-                    contact: formData.phone, // Mapping phone to contact for backend consistency if needed
+                    contact: formData.phone, 
                     subject: formData.subject,
-                    // This maps to the optional `message` field in the backend Contact model
+                  
                     message: formData.message
                 }),
             });
