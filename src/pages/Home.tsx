@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
+import { useAutoScroll } from '../hooks/useAutoScroll';
 import { Layout, Smartphone, Globe, PenTool, Server, CheckCircle2 } from 'lucide-react';
 
 // --- Reusable Components ---
@@ -301,6 +302,8 @@ function CallToActionSection() {
 // --- Main Page Component ---
 
 export default function Home() {
+    useAutoScroll();
+
     return (
         <main className="bg-neutral-950 min-h-screen text-white selection:bg-white/20">
             <HeroSection />

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useAutoScroll } from '../hooks/useAutoScroll';
 import { Mail, Phone, Clock, MessageCircle, CheckCircle } from 'lucide-react';
 
 const Contact = () => {
+    useAutoScroll();
     const whatsappNumber = "918329761217"; // Placeholder
     const contactNumber = "+91 83297 61217";
     const emailAddress = "thebreakpoint.inc@gmail.com";
