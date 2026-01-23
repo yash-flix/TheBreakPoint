@@ -99,7 +99,7 @@ function FloatingPaths({ position }: { position: number }) {
 
 // --- Sections ---
 
-function HeroSection({ onOpenContactForm }: { onOpenContactForm: () => void }) {
+function HeroSection({ onOpenContactForm }: { onOpenContactForm?: () => void }) {
     return (
         <div className="relative min-h-[90vh] w-full flex items-center justify-center overflow-hidden bg-neutral-950 pt-20">
             <div className="absolute inset-0 opacity-20">
@@ -324,7 +324,7 @@ function ProcessSection() {
     );
 }
 
-function CallToActionSection({ onOpenContactForm }: { onOpenContactForm: () => void }) {
+function CallToActionSection({ onOpenContactForm }: { onOpenContactForm?: () => void }) {
     return (
         <section className="py-32 bg-neutral-950">
             <div className="container mx-auto px-4 text-center">

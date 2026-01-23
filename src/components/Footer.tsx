@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Instagram, Facebook, Twitter, MessageCircle, Mail } from "lucide-react";
+import {  Twitter, MessageCircle, Mail } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -95,14 +95,7 @@ const Footer = () => {
               CONNECT
             </h4>
             <div className="flex space-x-4">
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <Instagram size={20} />
-              </a>
+
                             <a
                 href="https://x.com/breakpoint31411"
                 target="_blank"
