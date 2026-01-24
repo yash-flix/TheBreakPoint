@@ -36,17 +36,19 @@ const Navbar = () => {
                         <img src={logo} alt="The BreakPoint" className="h-14 w-auto" />
                         <span className="hidden sm:inline">THE BREAKPOINT</span>
                     </Link> */}
-                    <a 
-  href="#"
+                    <Link 
+  to="/"
   onClick={(e) => {
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (window.location.pathname === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }}
   className="flex items-center gap-2 text-xl md:text-2xl font-bold tracking-tighter text-white cursor-pointer"
 >
   <img src={logo} alt="The BreakPoint" className="h-14 w-auto" />
   <span className="hidden sm:inline">THE BREAKPOINT</span>
-</a>
+</Link>
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center gap-8">
@@ -122,7 +124,7 @@ const Navbar = () => {
 
                                 <div className="pt-3 border-t border-neutral-800">
                                     <a
-                                        href="#"
+                                        href="/contact"
                                         className="block px-4 py-3 text-sm font-semibold text-center text-neutral-950 bg-white rounded-lg hover:bg-neutral-200 transition-all"
                                     >
                                         Start a Project
