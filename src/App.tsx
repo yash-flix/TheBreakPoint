@@ -4,8 +4,8 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Work from './pages/Work';
 import Footer from "./components/Footer.tsx"
-
 import Contact from './pages/Contact';
+import Admin from './pages/Admin';
 
 function AppContent() {
   // Enable auto-scroll on route changes
@@ -18,6 +18,7 @@ function AppContent() {
         <Route path="/" element={<Home />} />
         <Route path="/work" element={<Work />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
       <Footer />
     </div>
