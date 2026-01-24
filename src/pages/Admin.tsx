@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 // Backend URL - use local for development, production for deployed site
-// const API_BASE_URL = "https://thebreakpoint-backend.onrender.com"; // Production
-const API_BASE_URL = "http://localhost:5001"; // Local development
+const API_BASE_URL = "https://thebreakpoint-backend.onrender.com"; // Production
+// const API_BASE_URL = "http://localhost:5001"; // Local development
 const API_URL = `${API_BASE_URL}/api`;
 
 interface ContactSubmission {
