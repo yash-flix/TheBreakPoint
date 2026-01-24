@@ -23,37 +23,13 @@ const Footer = () => {
               SERVICES
             </h4>
             <ul className="space-y-2">
-              <li>
-                <Link
-                  to="/web-design"
-                  className="text-gray-400 hover:text-white text-sm transition-colors"
-                >
-                  Web Design
-                </Link>
+              <li className="text-gray-400 hover:text-white text-sm transition-colors"> Web Design
               </li>
-              <li>
-                <Link
-                  to="/development"
-                  className="text-gray-400 hover:text-white text-sm transition-colors"
-                >
-                  Development
-                </Link>
+              <li  className="text-gray-400 hover:text-white text-sm transition-colors">Development
               </li>
-              <li>
-                <Link
-                  to="/branding"
-                  className="text-gray-400 hover:text-white text-sm transition-colors"
-                >
-                  Branding
-                </Link>
+              <li className="text-gray-400 hover:text-white text-sm transition-colors">Branding
               </li>
-              <li>
-                <Link
-                  to="/consultation"
-                  className="text-gray-400 hover:text-white text-sm transition-colors"
-                >
-                  Consultation
-                </Link>
+              <li className="text-gray-400 hover:text-white text-sm transition-colors">Consultation
               </li>
             </ul>
           </div>
@@ -64,14 +40,14 @@ const Footer = () => {
               SUPPORT
             </h4>
             <ul className="space-y-2">
-              <li>
+              {/* <li>
                 <Link
                   to="/faq"
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
                   FAQ
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link
                   to="/contact"
@@ -82,7 +58,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/portfolio"
+                  to="/work"
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
                   Portfolio
