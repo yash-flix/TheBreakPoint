@@ -1,2 +1,6 @@
 .env
 node_modules
+logs/
+temp_hash.txt
+*.log
+.DS_Store
