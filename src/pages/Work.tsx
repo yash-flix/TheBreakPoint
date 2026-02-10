@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useAutoScroll } from "../hooks/useAutoScroll";
 import moments from "../assets/videos/moments.webm";
 import adSteels from "../assets/videos/adSteels.webm";
+import cafeRelish from "../assets/videos/cafeRelish.webm";
 
 interface Project {
   id: number;
@@ -31,6 +32,15 @@ const projects: Project[] = [
     tags: ["E-commerce", "Catalouge", "Eco-friendly products"],
     link: "https://ad-steels.vercel.app/",
   },
+  {
+  id: 3,
+  title: "Cafe Relish",
+  description:
+    "A visually rich café website designed to showcase menu offerings, ambience, and brand identity. Built with a modern layout and smooth interactions to give visitors a warm, inviting preview of the café experience.",
+  videoUrl: cafeRelish,
+  tags: ["Restaurant Website", "UI/UX Design", "Landing Page"],
+  link: "https://caferelish.netlify.app/",
+}
 //   {
 //     id: 3,
 //     title: "Quantum Finance",

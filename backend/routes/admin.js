@@ -86,14 +86,15 @@ router.post('/login', loginLimiter, async (req, res) => {
         const hashedPassword = process.env.ADMIN_PASSWORD_HASH;
 
         if (!hashedPassword) {
-            console.error('❌ ADMIN_PASSWORD_HASH not configured!');
+            console.error('❌ CRITICAL CONFIG ERROR: ADMIN_PASSWORD_HASH environment variable is not defined!');
+            console.error('💡 Please add ADMIN_PASSWORD_HASH to your environment variables on Render.com');
             logAdminAction('LOGIN_FAILED_CONFIG_ERROR', {
                 ip: req.ip,
-                reason: 'Missing password hash configuration'
+                reason: 'Missing ADMIN_PASSWORD_HASH configuration'
             });
             return res.status(500).json({
                 success: false,
-                msg: 'Server configuration error. Please contact administrator.'
+                msg: 'Server configuration error. Please contact administrator if you are the site owner.'
             });
         }
 

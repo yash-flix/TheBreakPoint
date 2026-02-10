@@ -72,9 +72,12 @@ mongoose
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
+    const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
     res.json({
-        status: 'ok',
+        status: dbStatus === 'connected' ? 'ok' : 'error',
+        database: dbStatus,
         message: 'Backend server is running',
+        environment: process.env.NODE_ENV || 'development',
         timestamp: new Date().toISOString()
     });
 });
