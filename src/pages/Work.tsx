@@ -3,7 +3,7 @@ import { useAutoScroll } from "../hooks/useAutoScroll";
 import moments from "../assets/videos/moments.webm";
 import adSteels from "../assets/videos/adSteels.webm";
 import cafeRelish from "../assets/videos/cafeRelish.webm";
-
+import cocoaCafe from "../assets/videos/cocoa.webm";
 interface Project {
   id: number;
   title: string;
@@ -27,40 +27,30 @@ const projects: Project[] = [
     id: 2,
     title: "AD Steels",
     description:
-        "A modern e-commerce catalouge site for premium steel bottles. Showcasing durable, eco-friendly designs that combine style with sustainability for everyday hydration.",
-    videoUrl:adSteels,
+      "A modern e-commerce catalouge site for premium steel bottles. Showcasing durable, eco-friendly designs that combine style with sustainability for everyday hydration.",
+    videoUrl: adSteels,
     tags: ["E-commerce", "Catalouge", "Eco-friendly products"],
     link: "https://ad-steels.vercel.app/",
   },
   {
-  id: 3,
-  title: "Cafe Relish",
-  description:
-    "A visually rich café website designed to showcase menu offerings, ambience, and brand identity. Built with a modern layout and smooth interactions to give visitors a warm, inviting preview of the café experience.",
-  videoUrl: cafeRelish,
-  tags: ["Restaurant Website", "UI/UX Design", "Landing Page"],
-  link: "https://caferelish.netlify.app/",
-}
-//   {
-//     id: 3,
-//     title: "Quantum Finance",
-//     description:
-//       "Data visualization dashboard for a fintech startup. Processing millions of data points with high-performance WebGL rendering.",
-//     videoUrl:
-//       "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-//     tags: ["Web App", "WebGL", "Fintech"],
-//     link: "https://example.com/quantum-finance",
-//   },
-//   {
-//     id: 4,
-//     title: "Nebula Brand Identity",
-//     description:
-//       "Dynamic brand motion system for a tech conglomerate. Created a cohesive visual language across all digital touchpoints.",
-//     videoUrl:
-//       "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-//     tags: ["Branding", "Motion Graphics", "Strategy"],
-//     link: "https://example.com/nebula",
-//   },
+    id: 3,
+    title: "Cafe Relish",
+    description:
+      "A visually rich café website designed to showcase menu offerings, ambience, and brand identity. Built with a modern layout and smooth interactions to give visitors a warm, inviting preview of the café experience.",
+    videoUrl: cafeRelish,
+    tags: ["Restaurant Website", "UI/UX Design", "Landing Page"],
+    link: "https://caferelish.netlify.app/",
+  },
+  {
+    id: 4,
+    title: "Cocoa Cafe",
+    description:
+      "A stylish and inviting café website designed to highlight signature beverages, menu features, and brand atmosphere. Featuring a modern, warm interface that draws users into the Cocoa Cafe experience with engaging visuals and smooth navigation.",
+    videoUrl: cocoaCafe,
+    tags: ["Restaurant Website", "UI/UX Design", "Landing Page"],
+    link: "https://cocoa-website-jade.vercel.app/",
+  }
+
 ];
 
 const Work = () => {
@@ -113,7 +103,7 @@ const Work = () => {
                   onMouseEnter={(e) => {
                     const video = e.currentTarget;
                     video.currentTime = 0;
-                    video.play().catch(() => {});
+                    video.play().catch(() => { });
                   }}
                   onMouseLeave={(e) => {
                     const video = e.currentTarget;
@@ -122,7 +112,7 @@ const Work = () => {
                   }}
                   onClick={(e) => {
                     const video = e.currentTarget;
-                    video.play().catch(() => {});
+                    video.play().catch(() => { });
                   }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 to-transparent opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
