@@ -1,13 +1,21 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { ProgressiveBlur } from './ui';
 
 import logo from '../assets/logo.png';
+
+const NAV_LINKS = [
+    { to: '/', label: 'Studio' },
+    { to: '/work', label: 'Work' },
+    { to: '/contact', label: 'Contact' },
+];
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const { pathname } = useLocation();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -24,111 +32,111 @@ const Navbar = () => {
 
     return (
         <motion.nav
-            initial={{ y: -100 }}
+            initial={{ y: -80 }}
             animate={{ y: 0 }}
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-neutral-950/80 backdrop-blur-md border-b border-white/10' : 'bg-transparent'
-                }`}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-x-0 top-0 z-50"
         >
-            <div className="container mx-auto px-4 md:px-6">
-                <div className="flex items-center justify-between h-20">
-                    {/* Logo */}
-                    {/* <Link to="/" className="flex items-center gap-2 text-xl md:text-2xl font-bold tracking-tighter text-white">
-                        <img src={logo} alt="The BreakPoint" className="h-14 w-auto" />
-                        <span className="hidden sm:inline">THE BREAKPOINT</span>
-                    </Link> */}
-                    <Link 
-  to="/"
-  onClick={(e) => {
-    if (window.location.pathname === '/') {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }}
-  className="flex items-center gap-2 text-xl md:text-2xl font-bold tracking-tighter text-white cursor-pointer"
->
-  <img src={logo} alt="The BreakPoint" className="h-14 w-auto" />
-  <span className="hidden sm:inline">THE BREAKPOINT</span>
-</Link>
+            {/* Blur ramps in as the page scrolls under the bar */}
+            <div
+                aria-hidden
+                className={`absolute inset-0 -bottom-8 transition-opacity duration-500 ${isScrolled ? 'opacity-100' : 'opacity-0'
+                    }`}
+            >
+                <ProgressiveBlur direction="top" />
+                <div className="absolute inset-0 bg-gradient-to-b from-ink-950/85 via-ink-950/55 to-transparent" />
+            </div>
 
-                    {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center gap-8">
-                        <Link to="/" className="text-sm font-medium text-neutral-400 hover:text-white transition-colors">
-                            About Us
-                        </Link>
-                        <Link to="/contact" className="text-sm font-medium text-neutral-400 hover:text-white transition-colors">
-                            Contact Us
-                        </Link>
+            <div className="relative mx-auto w-full max-w-6xl px-5 sm:px-8">
+                <div className="flex h-20 items-center justify-between">
+                    {/* Wordmark */}
+                    <Link
+                        to="/"
+                        onClick={(e) => {
+                            if (window.location.pathname === '/') {
+                                e.preventDefault();
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }
+                        }}
+                        className="group flex items-center gap-3"
+                    >
+                        <img src={logo} alt="" className="h-9 w-auto" />
+                        <span className="flex flex-col leading-none">
+                            <span className="text-lg font-medium tracking-[-0.02em] text-mist-50">
+                                Breakpoint
+                            </span>
+                            <span className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.28em] text-mist-700 transition-colors duration-500 group-hover:text-ice-300/70">
+                                Applied AI
+                            </span>
+                        </span>
+                    </Link>
 
-                        <div className="flex items-center gap-4">
+                    {/* Desktop navigation */}
+                    <div className="hidden items-center gap-9 md:flex">
+                        {NAV_LINKS.map((link) => (
                             <Link
-                                to="/work"
-                                className="px-6 py-2.5 text-sm font-semibold text-neutral-950 bg-white rounded-full hover:bg-neutral-200 transition-all duration-300 hover:scale-105"
+                                key={link.to}
+                                to={link.to}
+                                className={`font-mono text-[11px] uppercase tracking-[0.18em] transition-colors duration-300 ${pathname === link.to
+                                    ? 'text-mist-50'
+                                    : 'text-mist-500 hover:text-mist-100'
+                                    }`}
                             >
-                                See Our Work
+                                {link.label}
                             </Link>
-                        </div>
+                        ))}
+
+                        <Link
+                            to="/contact"
+                            className="inline-flex items-center gap-1.5 rounded-full bg-ice-300 px-5 py-2.5 text-[13px] font-medium text-ink-950 shadow-[0_0_36px_-14px_rgba(166,218,255,0.9)] transition-colors duration-300 hover:bg-ice-200"
+                        >
+                            Start a project
+                            <ArrowUpRight className="h-3.5 w-3.5" />
+                        </Link>
                     </div>
 
-                    {/* Mobile Menu Button */}
+                    {/* Mobile menu button */}
                     <button
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        className="md:hidden text-white p-2"
+                        className="p-2 text-mist-100 md:hidden"
                         aria-label="Toggle mobile menu"
+                        aria-expanded={isMobileMenuOpen}
                     >
-                        <motion.div
-                            initial={false}
-                            animate={{ rotate: isMobileMenuOpen ? 0 : 0 }}
-                            transition={{ duration: 0.3 }}
-                        >
-                            {isMobileMenuOpen ? (
-                                <X size={24} />
-                            ) : (
-                                <Menu size={24} />
-                            )}
-                        </motion.div>
+                        {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
                     </button>
                 </div>
 
-                {/* Mobile Navigation Menu */}
+                {/* Mobile navigation */}
                 <AnimatePresence>
                     {isMobileMenuOpen && (
                         <motion.div
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.3 }}
-                            className="md:hidden overflow-hidden"
+                            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                            className="overflow-hidden md:hidden"
                         >
-                            <div className="px-4 py-4 space-y-3 bg-neutral-900/50 backdrop-blur-md border-t border-white/10">
-                                <Link
-                                    to="/"
-                                    onClick={handleMobileMenuClick}
-                                    className="block px-4 py-3 text-sm font-medium text-neutral-300 hover:text-white hover:bg-neutral-800/50 rounded-lg transition-all"
-                                >
-                                    About Us
-                                </Link>
-                                <Link
-                                    to="/work"
-                                    onClick={handleMobileMenuClick}
-                                    className="block px-4 py-3 text-sm font-medium text-neutral-300 hover:text-white hover:bg-neutral-800/50 rounded-lg transition-all"
-                                >
-                                    See Our Work
-                                </Link>
-                                <Link
-                                    to="/contact"
-                                    onClick={handleMobileMenuClick}
-                                    className="block px-4 py-3 text-sm font-medium text-neutral-300 hover:text-white hover:bg-neutral-800/50 rounded-lg transition-all"
-                                >
-                                    Contact Us
-                                </Link>
-
-                                <div className="pt-3 border-t border-neutral-800">
-                                    <a
-                                        href="/contact"
-                                        className="block px-4 py-3 text-sm font-semibold text-center text-neutral-950 bg-white rounded-lg hover:bg-neutral-200 transition-all"
+                            <div className="space-y-1 border-t hairline py-5">
+                                {NAV_LINKS.map((link) => (
+                                    <Link
+                                        key={link.to}
+                                        to={link.to}
+                                        onClick={handleMobileMenuClick}
+                                        className="block rounded-lg px-3 py-3 font-mono text-[11px] uppercase tracking-[0.18em] text-mist-300 transition-colors hover:bg-white/[0.04] hover:text-white"
                                     >
-                                        Start a Project
-                                    </a>
+                                        {link.label}
+                                    </Link>
+                                ))}
+
+                                <div className="pt-4">
+                                    <Link
+                                        to="/contact"
+                                        onClick={handleMobileMenuClick}
+                                        className="flex items-center justify-center gap-1.5 rounded-full bg-ice-300 px-5 py-3.5 text-sm font-medium text-ink-950"
+                                    >
+                                        Start a project
+                                        <ArrowUpRight className="h-4 w-4" />
+                                    </Link>
                                 </div>
                             </div>
                         </motion.div>

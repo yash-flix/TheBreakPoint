@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Mail, Phone, Clock, MessageCircle, CheckCircle, ArrowUpRight } from 'lucide-react';
 import { useAutoScroll } from '../hooks/useAutoScroll';
-import { Mail, Phone, Clock, MessageCircle, CheckCircle } from 'lucide-react';
+import { Accent, Backdrop, Button, Container, Display, Eyebrow } from '../components/ui';
+import { SignalDome } from '../components/visuals';
 
 const API_BASE_URL = "https://thebreakpoint-backend.onrender.com";
 
+const inputClass =
+    'w-full rounded-xl border hairline bg-ink-900/70 px-4 py-3.5 text-[15px] text-mist-50 ' +
+    'outline-none transition-all duration-300 placeholder:text-mist-700 ' +
+    'focus:border-ice-300/50 focus:ring-2 focus:ring-ice-300/15';
+
+const labelClass = 'font-mono text-[10px] uppercase tracking-[0.18em] text-mist-500';
 
 const Contact = () => {
     useAutoScroll();
@@ -42,7 +50,7 @@ const Contact = () => {
                 subject: formData.subject,
                 message: formData.message
             });
-            
+
             const response = await fetch(`${API_BASE_URL}/api/contact`, {
                 method: 'POST',
                 headers: {
@@ -51,9 +59,9 @@ const Contact = () => {
                 body: JSON.stringify({
                     name: formData.name,
                     email: formData.email,
-                    contact: formData.phone, 
+                    contact: formData.phone,
                     subject: formData.subject,
-                  
+
                     message: formData.message
                 }),
             });
@@ -91,57 +99,74 @@ const Contact = () => {
     };
 
     return (
-        <div className="min-h-screen bg-neutral-950 text-neutral-200">
-            {/* Header Section */}
-            <section className="relative py-20 px-4 md:px-0 bg-neutral-900/50 border-b border-neutral-800">
-                <div className="max-w-6xl mx-auto text-center">
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-4xl md:text-5xl font-bold text-white mb-4"
-                    >
-                        Get in Touch
-                    </motion.h1>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="text-lg text-neutral-400 max-w-2xl mx-auto"
-                    >
-                        Have a question about our products or want to place a bulk order? We'd love to hear from you.
-                    </motion.p>
+        <main className="bg-ink-950 text-mist-100">
+            {/* Header */}
+            <section className="relative overflow-hidden border-b hairline pt-40 pb-20">
+                <Backdrop />
+                <div
+                    aria-hidden
+                    className="pointer-events-none absolute left-1/3 top-0 h-[26rem] w-[26rem] -translate-y-1/2 rounded-full bg-ice-500/[0.12] blur-[120px]"
+                />
+                <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-[24rem] opacity-70 sm:h-[28rem]"
+                >
+                    <SignalDome />
                 </div>
+                <Container className="relative">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                        className="max-w-3xl"
+                    >
+                        <Eyebrow className="mb-8">Get in touch</Eyebrow>
+                        <Display as="h1" className="text-[2.75rem] leading-[1.04] sm:text-6xl lg:text-[4.25rem]">
+                            Let's find the first thing worth <Accent>automating.</Accent>
+                        </Display>
+                        <p className="mt-8 max-w-2xl text-lg leading-relaxed text-mist-300/80">
+                            Tell us what the workflow looks like today. We'll come back with a
+                            straight answer on whether AI is the right tool, and what a first
+                            slice would cost to prove.
+                        </p>
+                    </motion.div>
+                </Container>
             </section>
 
-            <div className="max-w-7xl mx-auto px-4 py-16">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                    {/* Left Column: Form */}
+            <Container className="py-20 sm:py-24">
+                <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-20">
+                    {/* Left column: form */}
                     <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.2 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.15, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                        className="lg:col-span-7"
                     >
-                        <h2 className="text-2xl font-semibold text-white mb-8">Send us a Message</h2>
+                        <Eyebrow index="01" className="mb-8">
+                            Send a message
+                        </Eyebrow>
 
                         {isSuccess ? (
-                            <div className="bg-neutral-900/50 border border-neutral-800 rounded-2xl p-8 text-center py-16">
-                                <div className="inline-flex p-4 rounded-full bg-green-500/10 text-green-500 mb-4">
-                                    <CheckCircle size={48} />
+                            <div className="surface surface-hi px-8 py-20 text-center">
+                                <div className="mb-6 inline-flex rounded-full bg-ice-300/10 p-4 text-ice-300">
+                                    <CheckCircle size={40} strokeWidth={1.5} />
                                 </div>
-                                <h3 className="text-2xl font-medium text-white mb-2">Message Sent!</h3>
-                                <p className="text-neutral-400">We will get back to you soon.</p>
+                                <h3 className="text-3xl font-medium tracking-[-0.02em] text-mist-50">Message sent</h3>
+                                <p className="mt-3 text-[15px] text-mist-500">
+                                    We'll get back to you shortly.
+                                </p>
                                 <button
                                     onClick={() => setIsSuccess(false)}
-                                    className="mt-6 text-sm text-neutral-500 hover:text-white underline"
+                                    className="mt-8 font-mono text-[11px] uppercase tracking-[0.18em] text-mist-700 underline underline-offset-4 transition-colors hover:text-ice-300"
                                 >
                                     Send another message
                                 </button>
                             </div>
                         ) : (
                             <form onSubmit={handleSubmit} className="space-y-6">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div className="space-y-2">
-                                        <label htmlFor="name" className="text-sm font-medium text-neutral-400">Name *</label>
+                                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                                    <div className="space-y-2.5">
+                                        <label htmlFor="name" className={labelClass}>Name *</label>
                                         <input
                                             type="text"
                                             id="name"
@@ -149,12 +174,12 @@ const Contact = () => {
                                             required
                                             value={formData.name}
                                             onChange={handleChange}
-                                            className="w-full px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-lg focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 outline-none transition-all placeholder:text-neutral-600"
-                                            placeholder="Your Name"
+                                            className={inputClass}
+                                            placeholder="Your name"
                                         />
                                     </div>
-                                    <div className="space-y-2">
-                                        <label htmlFor="email" className="text-sm font-medium text-neutral-400">Email *</label>
+                                    <div className="space-y-2.5">
+                                        <label htmlFor="email" className={labelClass}>Email *</label>
                                         <input
                                             type="email"
                                             id="email"
@@ -162,15 +187,15 @@ const Contact = () => {
                                             required
                                             value={formData.email}
                                             onChange={handleChange}
-                                            className="w-full px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-lg focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 outline-none transition-all placeholder:text-neutral-600"
-                                            placeholder="your@email.com"
+                                            className={inputClass}
+                                            placeholder="you@company.com"
                                         />
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div className="space-y-2">
-                                        <label htmlFor="phone" className="text-sm font-medium text-neutral-400">Phone *</label>
+                                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                                    <div className="space-y-2.5">
+                                        <label htmlFor="phone" className={labelClass}>Phone *</label>
                                         <input
                                             type="tel"
                                             id="phone"
@@ -178,12 +203,12 @@ const Contact = () => {
                                             required
                                             value={formData.phone}
                                             onChange={handleChange}
-                                            className="w-full px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-lg focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 outline-none transition-all placeholder:text-neutral-600"
+                                            className={inputClass}
                                             placeholder="+91 XXXXX XXXXX"
                                         />
                                     </div>
-                                    <div className="space-y-2">
-                                        <label htmlFor="subject" className="text-sm font-medium text-neutral-400">Subject *</label>
+                                    <div className="space-y-2.5">
+                                        <label htmlFor="subject" className={labelClass}>Subject *</label>
                                         <div className="relative">
                                             <select
                                                 id="subject"
@@ -191,7 +216,7 @@ const Contact = () => {
                                                 required
                                                 value={formData.subject}
                                                 onChange={handleChange}
-                                                className="w-full px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-lg focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 outline-none transition-all appearance-none text-white text-sm"
+                                                className={`${inputClass} appearance-none pr-11`}
                                             >
                                                 <option value="" disabled>Select a subject</option>
                                                 <option value="General Inquiry">General Inquiry</option>
@@ -200,15 +225,15 @@ const Contact = () => {
                                                 <option value="Support">Support</option>
                                                 <option value="Other">Other</option>
                                             </select>
-                                            <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-neutral-500">
-                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-mist-700">
+                                                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="space-y-2">
-                                    <label htmlFor="message" className="text-sm font-medium text-neutral-400">Message *</label>
+                                <div className="space-y-2.5">
+                                    <label htmlFor="message" className={labelClass}>Message *</label>
                                     <textarea
                                         id="message"
                                         name="message"
@@ -216,77 +241,85 @@ const Contact = () => {
                                         rows={6}
                                         value={formData.message}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-lg focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 outline-none transition-all placeholder:text-neutral-600 resize-none"
-                                        placeholder="How can we help you?"
+                                        className={`${inputClass} resize-none`}
+                                        placeholder="What are you trying to build or automate?"
                                     />
                                 </div>
 
-                                <button
+                                <Button
                                     type="submit"
+                                    size="lg"
                                     disabled={isSubmitting}
-                                    className="w-full py-4 bg-white text-black font-semibold rounded-lg hover:bg-neutral-200 transition-colors duration-300 flex items-center justify-center gap-2 group"
+                                    className="group w-full"
                                 >
-                                    {isSubmitting ? 'Sending...' : 'SEND MESSAGE'}
-                                </button>
+                                    {isSubmitting ? 'Sending…' : 'Send message'}
+                                    {!isSubmitting && (
+                                        <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                                    )}
+                                </Button>
                             </form>
                         )}
                     </motion.div>
 
-                    {/* Right Column: Contact Info */}
+                    {/* Right column: direct channels */}
                     <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.3 }}
-                        className="space-y-12"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.25, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                        className="lg:col-span-5"
                     >
-                        <div>
-                            <h2 className="text-2xl font-semibold text-white mb-8">Quick Contact</h2>
-                            <div className="space-y-4">
-                                <button
-                                    onClick={handleWhatsAppClick}
-                                    className="w-full py-4 bg-[#25D366] hover:bg-[#1faa53] text-white font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-3 uppercase tracking-wide"
-                                >
-                                    <MessageCircle size={20} />
-                                    Chat on WhatsApp
-                                </button>
-                                <a
-                                    href={`tel:${contactNumber}`}
-                                    className="w-full py-4 border border-neutral-700 hover:border-white text-white font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-3 uppercase tracking-wide"
-                                >
-                                    <Phone size={20} />
-                                    Call: {contactNumber}
-                                </a>
+                        <Eyebrow index="02" className="mb-8">
+                            Or reach us directly
+                        </Eyebrow>
+
+                        <div className="space-y-3">
+                            <button
+                                onClick={handleWhatsAppClick}
+                                className="flex w-full items-center justify-center gap-3 rounded-full border hairline bg-ink-900/70 py-4 text-sm font-medium text-mist-50 transition-all duration-300 hover:border-ice-300/40 hover:bg-ice-300/[0.06]"
+                            >
+                                <MessageCircle size={17} strokeWidth={1.5} />
+                                Chat on WhatsApp
+                            </button>
+                            <a
+                                href={`tel:${contactNumber}`}
+                                className="flex w-full items-center justify-center gap-3 rounded-full border hairline bg-ink-900/70 py-4 text-sm font-medium text-mist-50 transition-all duration-300 hover:border-ice-300/40 hover:bg-ice-300/[0.06]"
+                            >
+                                <Phone size={17} strokeWidth={1.5} />
+                                {contactNumber}
+                            </a>
+                        </div>
+
+                        <div className="surface mt-10 overflow-hidden">
+                            <div className="flex items-start gap-5 p-7">
+                                <Mail size={18} strokeWidth={1.5} className="mt-1 shrink-0 text-ice-300/80" />
+                                <div>
+                                    <h3 className={labelClass}>Email</h3>
+                                    <p className="mt-2 break-all text-[15px] text-mist-300/85">
+                                        {emailAddress}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-5 border-t hairline p-7">
+                                <Clock size={18} strokeWidth={1.5} className="mt-1 shrink-0 text-ice-300/80" />
+                                <div>
+                                    <h3 className={labelClass}>Business hours</h3>
+                                    <p className="mt-2 text-[15px] text-mist-300/85">
+                                        Mon – Sat: 10:00 AM – 7:00 PM
+                                    </p>
+                                    <p className="text-[15px] text-mist-500">Sunday: Closed</p>
+                                </div>
                             </div>
                         </div>
 
-                        <div className="space-y-8">
-                            <div className="flex items-start gap-4">
-                                <div className="p-3 bg-neutral-900 rounded-lg text-neutral-400">
-                                    <Mail size={24} />
-                                </div>
-                                <div>
-                                    <h3 className="text-lg font-medium text-white mb-1">Email</h3>
-                                    <p className="text-neutral-400">{emailAddress}</p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-start gap-4">
-                                <div className="p-3 bg-neutral-900 rounded-lg text-neutral-400">
-                                    <Clock size={24} />
-                                </div>
-                                <div>
-                                    <h3 className="text-lg font-medium text-white mb-1">Business Hours</h3>
-                                    <p className="text-neutral-400">Mon - Sat: 10:00 AM - 7:00 PM</p>
-                                    <p className="text-neutral-400">Sunday: Closed</p>
-                                </div>
-                            </div>
-                        </div>
-
-
+                        <p className="mt-10 text-[15px] leading-relaxed text-mist-500">
+                            Prefer to come with a spec? Send it over. Prefer to think out loud?
+                            That works too. Either way you'll hear back from the person who would
+                            build it.
+                        </p>
                     </motion.div>
                 </div>
-            </div>
-        </div>
+            </Container>
+        </main>
     );
 };
 

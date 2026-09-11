@@ -108,23 +108,23 @@ const Admin = () => {
 
     if (!isAuthenticated) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 px-4">
+            <div className="min-h-screen flex items-center justify-center bg-ink-950 px-4">
                 <div className="w-full max-w-md">
                     {/* Login Card */}
-                    <div className="bg-neutral-900/50 backdrop-blur-xl border border-neutral-800 rounded-2xl p-8 shadow-2xl">
+                    <div className="surface surface-hi bg-ink-900/70 backdrop-blur-xl p-8">
                         <div className="text-center mb-8">
-                            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full mb-4">
-                                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div className="inline-flex items-center justify-center w-16 h-16 bg-ice-300/10 text-ice-300 border hairline rounded-full mb-4">
+                                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                 </svg>
                             </div>
-                            <h1 className="text-3xl font-bold text-white mb-2">Admin Panel</h1>
-                            <p className="text-neutral-400">Enter password to access dashboard</p>
+                            <h1 className="text-3xl font-medium tracking-[-0.02em] text-mist-50 mb-2">Admin Panel</h1>
+                            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-mist-700">Enter password to access dashboard</p>
                         </div>
 
                         <form onSubmit={handleLogin} className="space-y-6">
                             <div>
-                                <label htmlFor="password" className="block text-sm font-medium text-neutral-300 mb-2">
+                                <label htmlFor="password" className="block font-mono text-[10px] uppercase tracking-[0.18em] text-mist-500 mb-2">
                                     Password
                                 </label>
                                 <input
@@ -132,14 +132,14 @@ const Admin = () => {
                                     id="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="w-full px-4 py-3 bg-neutral-800/50 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                                    className="w-full px-4 py-3.5 bg-ink-950/60 border hairline rounded-xl text-mist-50 placeholder-mist-700 outline-none focus:border-ice-300/50 focus:ring-2 focus:ring-ice-300/15 transition-all"
                                     placeholder="Enter admin password"
                                     required
                                 />
                             </div>
 
                             {error && (
-                                <div className="bg-red-500/10 border border-red-500/50 rounded-lg p-3 text-red-400 text-sm">
+                                <div className="bg-red-500/10 border border-red-500/40 rounded-xl p-3 text-red-300 text-sm">
                                     {error}
                                 </div>
                             )}
@@ -147,7 +147,7 @@ const Admin = () => {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-neutral-900 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full py-4 bg-ice-300 text-ink-950 font-medium rounded-full hover:bg-ice-200 focus:outline-none focus:ring-2 focus:ring-ice-300/60 focus:ring-offset-2 focus:ring-offset-ink-950 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {loading ? 'Authenticating...' : 'Login'}
                             </button>
@@ -159,19 +159,19 @@ const Admin = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950 py-8 px-4">
+        <div className="min-h-screen bg-ink-950 pt-28 pb-16 px-4">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-8">
                     <div>
                         {/* <h1 className="text-4xl font-bold text-white mb-2">Contact Submissions</h1> */}
-                        <p className="text-neutral-400">
+                        <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-mist-700">
                             {contacts.length} {contacts.length === 1 ? 'submission' : 'submissions'} total
                         </p>
                     </div>
                     <button
                         onClick={handleLogout}
-                        className="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-medium rounded-lg transition-all flex items-center gap-2"
+                        className="px-6 py-3 border hairline bg-ink-900/70 hover:border-ice-300/40 hover:bg-ice-300/[0.06] text-mist-50 text-sm font-medium rounded-full transition-all flex items-center gap-2"
                     >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -183,64 +183,64 @@ const Admin = () => {
                 {/* Loading State */}
                 {loadingContacts ? (
                     <div className="flex items-center justify-center py-20">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500"></div>
+                        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-ice-300"></div>
                     </div>
                 ) : contacts.length === 0 ? (
-                    <div className="bg-neutral-900/50 backdrop-blur-xl border border-neutral-800 rounded-2xl p-12 text-center">
-                        <svg className="w-16 h-16 text-neutral-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="surface bg-ink-900/70 backdrop-blur-xl p-12 text-center">
+                        <svg className="w-14 h-14 text-mist-700 mx-auto mb-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                         </svg>
-                        <h3 className="text-xl font-semibold text-neutral-300 mb-2">No submissions yet</h3>
-                        <p className="text-neutral-500">Contact form submissions will appear here</p>
+                        <h3 className="text-xl font-medium tracking-[-0.01em] text-mist-50 mb-2">No submissions yet</h3>
+                        <p className="text-[15px] text-mist-500">Contact form submissions will appear here</p>
                     </div>
                 ) : (
-                    <div className="bg-neutral-900/50 backdrop-blur-xl border border-neutral-800 rounded-2xl overflow-hidden shadow-2xl">
+                    <div className="surface bg-ink-900/70 backdrop-blur-xl overflow-hidden">
                         <div className="overflow-x-auto">
                             <table className="w-full">
                                 <thead>
-                                    <tr className="bg-neutral-800/50 border-b border-neutral-700">
-                                        <th className="px-6 py-4 text-left text-xs font-semibold text-neutral-400 uppercase tracking-wider">
+                                    <tr className="bg-ink-800/60 border-b hairline">
+                                        <th className="px-6 py-4 text-left font-mono text-[10px] font-normal text-mist-500 uppercase tracking-[0.18em]">
                                             Name
                                         </th>
-                                        <th className="px-6 py-4 text-left text-xs font-semibold text-neutral-400 uppercase tracking-wider">
+                                        <th className="px-6 py-4 text-left font-mono text-[10px] font-normal text-mist-500 uppercase tracking-[0.18em]">
                                             Email
                                         </th>
-                                        <th className="px-6 py-4 text-left text-xs font-semibold text-neutral-400 uppercase tracking-wider">
+                                        <th className="px-6 py-4 text-left font-mono text-[10px] font-normal text-mist-500 uppercase tracking-[0.18em]">
                                             Contact
                                         </th>
-                                        <th className="px-6 py-4 text-left text-xs font-semibold text-neutral-400 uppercase tracking-wider">
+                                        <th className="px-6 py-4 text-left font-mono text-[10px] font-normal text-mist-500 uppercase tracking-[0.18em]">
                                             Subject
                                         </th>
-                                        <th className="px-6 py-4 text-left text-xs font-semibold text-neutral-400 uppercase tracking-wider">
+                                        <th className="px-6 py-4 text-left font-mono text-[10px] font-normal text-mist-500 uppercase tracking-[0.18em]">
                                             Message
                                         </th>
-                                        <th className="px-6 py-4 text-left text-xs font-semibold text-neutral-400 uppercase tracking-wider">
+                                        <th className="px-6 py-4 text-left font-mono text-[10px] font-normal text-mist-500 uppercase tracking-[0.18em]">
                                             Date
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-neutral-800">
+                                <tbody className="divide-y divide-[color:var(--line)]">
                                     {contacts.map((contact) => (
-                                        <tr key={contact._id} className="hover:bg-neutral-800/30 transition-colors">
+                                        <tr key={contact._id} className="hover:bg-ice-300/[0.03] transition-colors">
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm font-medium text-white">{contact.name}</div>
+                                                <div className="text-sm font-medium text-mist-50">{contact.name}</div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm text-neutral-300">{contact.email}</div>
+                                                <div className="text-sm text-mist-300/85">{contact.email}</div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm text-neutral-300">{contact.contact}</div>
+                                                <div className="text-sm text-mist-300/85">{contact.contact}</div>
                                             </td>
                                             <td className="px-6 py-4">
-                                                <div className="text-sm text-neutral-300 max-w-xs truncate">{contact.subject}</div>
+                                                <div className="text-sm text-mist-300/85 max-w-xs truncate">{contact.subject}</div>
                                             </td>
                                             <td className="px-6 py-4">
-                                                <div className="text-sm text-neutral-400 max-w-md truncate">
-                                                    {contact.message || <span className="italic text-neutral-600">No message</span>}
+                                                <div className="text-sm text-mist-500 max-w-md truncate">
+                                                    {contact.message || <span className="italic text-mist-700">No message</span>}
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm text-neutral-400">{formatDate(contact.createdAt)}</div>
+                                                <div className="text-sm text-mist-500">{formatDate(contact.createdAt)}</div>
                                             </td>
                                         </tr>
                                     ))}
