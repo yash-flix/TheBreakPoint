@@ -12,7 +12,7 @@ function AppContent() {
   useAutoScroll();
 
   return (
-    <div className="dark scroll-smooth bg-neutral-950 text-white min-h-screen">
+    <div className="dark min-h-screen scroll-smooth bg-ink-950 font-sans text-mist-100 antialiased">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

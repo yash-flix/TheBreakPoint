@@ -2,11 +2,217 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  scroll-behavior: smooth;
+@layer base {
+  :root {
+    --line: rgba(216, 231, 242, 0.10);
+    --line-strong: rgba(216, 231, 242, 0.18);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #04070d;
+    color: #d5dbe6;
+    font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  }
+
+  ::selection {
+    background: rgba(166, 218, 255, 0.22);
+    color: #eef3f9;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #04070d;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #171b26;
+    border-radius: 999px;
+    border: 2px solid #04070d;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #262d3d;
+  }
+
+  /* Instrument Serif has no true bold; keep display type at its natural weight */
+  .font-display {
+    font-weight: 400;
+  }
 }
 
-body {
-  margin: 0;
-  padding: 0;
+@layer components {
+
+  /* Hairline rules used to separate every major band */
+  .hairline {
+    border-color: var(--line);
+  }
+
+  .hairline-strong {
+    border-color: var(--line-strong);
+  }
+
+  /* Mono eyebrow label above section headings */
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-[0.22em] text-mist-500;
+  }
+
+  /* Faint blueprint grid laid behind hero and CTA bands */
+  .grid-veil {
+    background-image:
+      linear-gradient(to right, rgba(216, 231, 242, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(216, 231, 242, 0.045) 1px, transparent 1px);
+    background-size: 72px 72px;
+  }
+
+  /* Film grain so the large flat fields do not band */
+  .noise-veil {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+  }
+
+  /* Card surface: hairline border with a single top highlight */
+  .surface {
+    @apply relative rounded-2xl border bg-ink-900/70 hairline;
+  }
+
+  .surface-hi::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(166, 218, 255, 0.35), transparent);
+  }
+}
+
+@layer utilities {
+
+  /* Fades a band's edge into the page background */
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+  }
+
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@layer components {
+
+  /*
+   * Signature heading treatment from the reference: the text is painted with a
+   * gradient that falls off to the page background, so a centred headline is
+   * brightest at its core and dissolves at the edges.
+   */
+  .text-fill-radial {
+    background-image: radial-gradient(99% 86% at 50% 50%, #e4e9f2 28%, #04070d 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-fill-linear {
+    background-image: linear-gradient(138deg, #dfe6f0 52%, #04070d 166%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Small capsule label that sits above a hero headline */
+  .pill {
+    @apply inline-flex items-center gap-2 rounded-full border hairline bg-white/[0.03] px-4 py-1.5
+      font-mono text-[10px] uppercase tracking-[0.2em] text-mist-300 backdrop-blur-md;
+  }
+
+  /* Panel used by the product mock-up: large radius, faint inner top highlight */
+  .panel {
+    @apply relative rounded-[20px] border hairline bg-ink-850/90 backdrop-blur-xl;
+    box-shadow: 0 24px 70px -30px rgb(0 0 0 / 0.9);
+  }
+}
+
+@layer utilities {
+
+  /* Fades the bottom of the hero mock-up into the page */
+  .mask-fade-b-soft {
+    -webkit-mask-image: linear-gradient(to bottom, black 45%, transparent 96%);
+    mask-image: linear-gradient(to bottom, black 45%, transparent 96%);
+  }
+
+  .mask-radial-bottom {
+    -webkit-mask-image: radial-gradient(40% 46% at 50% 82%, #000 0%, #000c 73%, #0000 100%);
+    mask-image: radial-gradient(40% 46% at 50% 82%, #000 0%, #000c 73%, #0000 100%);
+  }
+}
+
+/*
+ * Visual keyframes. These run as native CSS animations rather than per-frame
+ * JavaScript. The reduced-motion block above neutralises all of them.
+ */
+@keyframes mesh-dash {
+  from {
+    stroke-dashoffset: 1;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes mesh-pulse {
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Expanding arc pulses for the signal dome */
+@keyframes dome-ping {
+  0% {
+    transform: scale(0.32);
+    opacity: 0;
+  }
+
+  18% {
+    opacity: 0.85;
+  }
+
+  100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
 }
