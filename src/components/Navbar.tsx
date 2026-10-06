@@ -9,6 +9,7 @@ import logo from '../assets/logo.png';
 const NAV_LINKS = [
     { to: '/', label: 'Studio' },
     { to: '/work', label: 'Work' },
+    { to: '/products', label: 'Products' },
     { to: '/contact', label: 'Contact' },
 ];
 

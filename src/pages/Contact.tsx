@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, Clock, MessageCircle, CheckCircle, ArrowUpRight } from 'lucide-react';
+import { Mail, Clock, CheckCircle, ArrowUpRight } from 'lucide-react';
 import { useAutoScroll } from '../hooks/useAutoScroll';
 import { Accent, Backdrop, Button, Container, Display, Eyebrow } from '../components/ui';
 import { SignalDome } from '../components/visuals';
@@ -16,8 +16,6 @@ const labelClass = 'font-mono text-[10px] uppercase tracking-[0.18em] text-mist-
 
 const Contact = () => {
     useAutoScroll();
-    const whatsappNumber = "918329761217"; // Placeholder
-    const contactNumber = "+91 83297 61217";
     const emailAddress = "thebreakpoint.inc@gmail.com";
 
     const [formData, setFormData] = useState({
@@ -91,11 +89,6 @@ const Contact = () => {
         } finally {
             setIsSubmitting(false);
         }
-    };
-
-    const handleWhatsAppClick = () => {
-        const message = encodeURIComponent("Hi, I'd like to discuss a project.");
-        window.open(`https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${message}`, '_blank');
     };
 
     return (
@@ -272,24 +265,7 @@ const Contact = () => {
                             Or reach us directly
                         </Eyebrow>
 
-                        <div className="space-y-3">
-                            <button
-                                onClick={handleWhatsAppClick}
-                                className="flex w-full items-center justify-center gap-3 rounded-full border hairline bg-ink-900/70 py-4 text-sm font-medium text-mist-50 transition-all duration-300 hover:border-ice-300/40 hover:bg-ice-300/[0.06]"
-                            >
-                                <MessageCircle size={17} strokeWidth={1.5} />
-                                Chat on WhatsApp
-                            </button>
-                            <a
-                                href={`tel:${contactNumber}`}
-                                className="flex w-full items-center justify-center gap-3 rounded-full border hairline bg-ink-900/70 py-4 text-sm font-medium text-mist-50 transition-all duration-300 hover:border-ice-300/40 hover:bg-ice-300/[0.06]"
-                            >
-                                <Phone size={17} strokeWidth={1.5} />
-                                {contactNumber}
-                            </a>
-                        </div>
-
-                        <div className="surface mt-10 overflow-hidden">
+                        <div className="surface overflow-hidden">
                             <div className="flex items-start gap-5 p-7">
                                 <Mail size={18} strokeWidth={1.5} className="mt-1 shrink-0 text-ice-300/80" />
                                 <div>

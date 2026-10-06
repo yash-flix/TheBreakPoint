@@ -1,6 +1,74 @@
 const express = require('express');
 const router = express.Router();
+const { Resend } = require('resend');
 const Contact = require('../models/Contact');
+
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+const NOTIFY_FROM = process.env.RESEND_FROM || 'TheBreakPoint <onboarding@resend.dev>';
+const NOTIFY_TO = (process.env.CONTACT_NOTIFY_TO || 'yash.tushar13@gmail.com,dishants0605@gmail.com')
+    .split(',')
+    .map((addr) => addr.trim())
+    .filter(Boolean);
+
+if (!resend) {
+    console.warn('⚠️  RESEND_API_KEY not set — contact form email notifications are disabled');
+}
+
+const escapeHtml = (value) =>
+    String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+
+// Email the team about a new submission. Never throws — the submission is
+// already saved, so a mail failure should only be logged.
+const sendContactNotification = async (saved) => {
+    if (!resend) return;
+
+    const rows = [
+        ['Name', saved.name],
+        ['Email', saved.email],
+        ['Phone', saved.contact],
+        ['Subject', saved.subject],
+        ['Message', saved.message || '(none)'],
+        ['Received', new Date(saved.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })],
+    ];
+
+    const html = `
+        <h2 style="font-family:sans-serif;margin:0 0 16px">New contact form submission</h2>
+        <table cellpadding="8" style="font-family:sans-serif;font-size:14px;border-collapse:collapse">
+            ${rows
+                .map(
+                    ([label, value]) => `
+                <tr>
+                    <td style="font-weight:600;vertical-align:top;border-bottom:1px solid #eee">${label}</td>
+                    <td style="white-space:pre-wrap;border-bottom:1px solid #eee">${escapeHtml(value)}</td>
+                </tr>`
+                )
+                .join('')}
+        </table>`;
+    const text = rows.map(([label, value]) => `${label}: ${value}`).join('\n');
+
+    try {
+        const { data, error } = await resend.emails.send({
+            from: NOTIFY_FROM,
+            to: NOTIFY_TO,
+            replyTo: saved.email,
+            subject: `New contact: ${saved.subject} — ${saved.name}`,
+            html,
+            text,
+        });
+        if (error) {
+            console.error('❌ Resend rejected contact notification:', error);
+        } else {
+            console.log('📧 Contact notification sent:', data?.id);
+        }
+    } catch (err) {
+        console.error('❌ Failed to send contact notification:', err);
+    }
+};
 
 // @route   POST api/contact
 // @desc    Submit contact form
@@ -56,7 +124,9 @@ router.post('/', async (req, res) => {
         console.log('   Message:', savedContact.message || '(none)');
         console.log('   Created At:', savedContact.createdAt);
         console.log('   ID:', savedContact._id);
-        
+
+        await sendContactNotification(savedContact);
+
         res.status(201).json({ 
             success: true,
             msg: 'Contact form submitted successfully',
