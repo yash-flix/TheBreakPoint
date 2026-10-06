@@ -3,6 +3,7 @@ import { useAutoScroll } from './hooks/useAutoScroll';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Work from './pages/Work';
+import Products from './pages/Products';
 import Footer from "./components/Footer.tsx"
 import Contact from './pages/Contact';
 import Admin from './pages/Admin';
@@ -17,6 +18,7 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/work" element={<Work />} />
+        <Route path="/products" element={<Products />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>
