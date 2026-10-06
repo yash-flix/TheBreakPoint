@@ -5,7 +5,7 @@ import { useAutoScroll } from '../hooks/useAutoScroll';
 import { Accent, Backdrop, Button, Container, Display, Eyebrow } from '../components/ui';
 import { SignalDome } from '../components/visuals';
 
-const API_BASE_URL = "https://thebreakpoint-backend.onrender.com";
+const API_BASE_URL = "https://thebreakpoint-dttn.onrender.com";
 
 const inputClass =
     'w-full rounded-xl border hairline bg-ink-900/70 px-4 py-3.5 text-[15px] text-mist-50 ' +
